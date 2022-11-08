@@ -12,12 +12,18 @@ public class Paralizado extends State {
     }
 
     @Override
-    public void atacar(Move move) {
+    public void receberAtaque(Move move) {
         Random random = new Random();
         int resultado = random.nextInt(2);
-        if(resultado == 1)
-            causarDano();
-        else
+        if(resultado == 1) {
+            resultado = random.nextInt(100);
+            
+            if(resultado < 6) {
+                System.out.println("O pokemon causou " + pokemon.getAtaque() * 2);
+                System.out.println("Foi um dano crítico");
+            } else
+                System.out.println("O pokemon causou " + pokemon.getAtaque());
+        } else
             System.out.println("Seu pokemon está paralizado, não pode atacar");
     }
 
@@ -29,23 +35,6 @@ public class Paralizado extends State {
             System.out.println("Moveu 1 quadrado");
         else
             System.out.println("Seu pokemon está paralizado, não pode se mover");
-    }
-
-    @Override
-    public void causarDano() {
-        Random random = new Random();
-        int resultado = random.nextInt(100);
-        
-        if(resultado < 6) {
-            System.out.println("O pokemon causou " + pokemon.getDano() * 2);
-            System.out.println("Foi um dano crítico");
-        } else
-            System.out.println("O pokemon causou " + pokemon.getDano());
-    }
-
-    @Override
-    public void tratar() {
-               
     }
     
 }

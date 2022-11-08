@@ -2,12 +2,21 @@ package state;
 
 import model.Move;
 import model.Pokemon;
+import util.Status;
 
 public abstract class State {
     protected Pokemon pokemon;
 
-    public abstract void atacar(Move move);
+    public abstract void receberAtaque(Move move);
     public abstract void mover();
-    public abstract void causarDano();
-    public abstract void tratar();
+
+    public void tratar() {
+        switch(pokemon.getCondicao()) {
+            case Status.CONFUSO: pokemon.setEstado(new Confuso(pokemon)); break;
+            case Status.ENVENENADO: pokemon.setEstado(new Envenenado(pokemon)); break;
+            case Status.PARALIZADO: pokemon.setEstado(new Paralizado(pokemon)); break;
+            case Status.QUEIMADO: pokemon.setEstado(new Queimado(pokemon)); break;
+            default: pokemon.setEstado(new Padrao(pokemon)); break;
+        }
+    }
 }

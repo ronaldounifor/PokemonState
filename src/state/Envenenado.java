@@ -13,8 +13,16 @@ public class Envenenado extends State {
     }
 
     @Override
-    public void atacar(Move move) {
-        causarDano();
+    public void receberAtaque(Move move) {
+        Random random = new Random();
+        int resultado = random.nextInt(100);
+        
+        if(resultado < 6) {
+            System.out.println("O pokemon causou " + pokemon.getAtaque() * 2);
+            System.out.println("Foi um dano crítico");
+        } else
+            System.out.println("O pokemon causou " + pokemon.getAtaque());
+
         this.pokemon.setHp(this.pokemon.getHp() - POISON_DAMAGE);
     }
 
@@ -24,23 +32,6 @@ public class Envenenado extends State {
         int resultado = random.nextInt(5);
         if(resultado == 4)
             this.pokemon.setHp(this.pokemon.getHp() - POISON_DAMAGE);
-    }
-
-    @Override
-    public void causarDano() {
-        Random random = new Random();
-        int resultado = random.nextInt(100);
-        
-        if(resultado < 6) {
-            System.out.println("O pokemon causou " + pokemon.getDano() * 2);
-            System.out.println("Foi um dano crítico");
-        } else
-            System.out.println("O pokemon causou " + pokemon.getDano());
-    }
-
-    @Override
-    public void tratar() {
-        
     }
     
 }
