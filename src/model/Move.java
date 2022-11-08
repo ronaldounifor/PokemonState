@@ -1,13 +1,15 @@
 package model;
 
 public class Move {
+    private String nome;
     private String efeito;
     private float chanceEfeito;
     private int pp;
     private int dano;
     private float precisao;
 
-    public Move(String efeito, float chanceEfeito, int pp, int dano, float precisao) {
+    public Move(String nome, String efeito, float chanceEfeito, int pp, int dano, float precisao) {
+        this.nome = nome;
         this.efeito = efeito;
         this.chanceEfeito = chanceEfeito;
         this.pp = pp;
@@ -46,6 +48,14 @@ public class Move {
 
     public void setChanceEfeito(float chanceEfeito) {
         this.chanceEfeito = chanceEfeito;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     
