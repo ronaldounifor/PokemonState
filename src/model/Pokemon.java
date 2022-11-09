@@ -1,10 +1,11 @@
 package model;
 
+import observer.Observavel;
 import state.Padrao;
 import state.State;
 import util.Status;
 
-public class Pokemon {
+public class Pokemon extends Observavel {
     private int id;
     private String nome;
     private String tipo1;

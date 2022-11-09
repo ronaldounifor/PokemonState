@@ -12,11 +12,25 @@ public abstract class State {
 
     public void tratar() {
         switch(pokemon.getCondicao()) {
-            case Status.CONFUSO: pokemon.setEstado(new Confuso(pokemon)); break;
-            case Status.ENVENENADO: pokemon.setEstado(new Envenenado(pokemon)); break;
-            case Status.PARALIZADO: pokemon.setEstado(new Paralizado(pokemon)); break;
-            case Status.QUEIMADO: pokemon.setEstado(new Queimado(pokemon)); break;
-            default: pokemon.setEstado(new Padrao(pokemon)); break;
+            case Status.CONFUSO: 
+                pokemon.setEstado(new Confuso(pokemon));
+                pokemon.notificar();
+                break;
+            case Status.ENVENENADO: 
+                pokemon.setEstado(new Envenenado(pokemon));
+                pokemon.notificar();
+                break;
+            case Status.PARALIZADO:
+                pokemon.setEstado(new Paralizado(pokemon));
+                pokemon.notificar();
+                break;
+            case Status.QUEIMADO:
+                pokemon.setEstado(new Queimado(pokemon));
+                pokemon.notificar();
+                break;
+            default:
+                pokemon.setEstado(new Padrao(pokemon));
+                break;
         }
     }
 }
