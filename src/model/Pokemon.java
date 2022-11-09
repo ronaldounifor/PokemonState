@@ -170,4 +170,12 @@ public class Pokemon {
     public void sofrerAtaque(Move move) {
         this.estado.receberAtaque(move);
     }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
 }

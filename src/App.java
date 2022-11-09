@@ -3,13 +3,24 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import model.Batalha;
 import model.Move;
 import model.Pokemon;
-import util.Status;
+import util.Moves;
 
 public class App {
     public static void main(String[] args) throws Exception {
-           
+      Pokemon pokemonMocinho = pokedex.get(31);
+      Pokemon pokemonVilao = pokedex.get(34);
+
+      Batalha batalha = new Batalha(pokemonMocinho, pokemonVilao);
+
+      while(pokemonMocinho.getHp() > 0 && pokemonVilao.getHp() > 0) {
+        batalha.setMoveJogador(Moves.poisonFang);
+        batalha.setMoveInimigo(Moves.poisonFang);
+        batalha.proximoTurno();
+      }
+
     }
 
     public static final HashMap<Integer, Pokemon> pokedex = new HashMap<>();
@@ -20,10 +31,10 @@ public class App {
         Scanner scanner = new Scanner(arquivoTop);
 
         Move[] moves = new Move[] {
-        new Move("Thunder Punch", Status.PARALIZADO, 10, 15, 75, 100),
-        new Move("Poison Fang", Status.ENVENENADO, 30, 15, 50, 100),
-        new Move("Fire Blast", Status.QUEIMADO, 30, 5, 110, 85),
-        new Move("Psybeam", Status.CONFUSO, 10, 20, 65, 100)
+          Moves.thunderPunch,
+          Moves.poisonFang,
+          Moves.fireBlast,
+          Moves.psybeam
         };
 
         while (scanner.hasNextLine()) {

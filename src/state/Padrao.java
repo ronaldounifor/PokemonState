@@ -4,6 +4,7 @@ import java.util.Random;
 
 import model.Move;
 import model.Pokemon;
+import util.Status;
 
 public class Padrao extends State {
 
@@ -13,15 +14,22 @@ public class Padrao extends State {
 
     @Override
     public void receberAtaque(Move move) {
-        if(move.getPp() > 0) {
-            System.out.println("O pokemon causou " + pokemon.getAtaque());
-            
-            move.setPp(move.getPp() - 1);
+        Random random = new Random();
+        int tentativa = random.nextInt(100);
 
-            Random random = new Random();
-            float f = random.nextFloat();
-            if(f < move.getChanceEfeito())
-                pokemon.setCondicao(move.getEfeito());
+        //Verifica se acerta
+        if(tentativa < move.getPrecisao()) {
+            int dano = (pokemon.getAtaque() + move.getDano())/20;
+
+            //Causa dano
+            pokemon.setHp(pokemon.getHp() - dano);
+
+            //Verifica se aplica efeito
+            if(!Status.PADRAO.equals(move.getEfeito())) {
+                tentativa = random.nextInt(100);
+                if(tentativa < move.getChanceEfeito())
+                    pokemon.setCondicao(move.getEfeito());
+            }
         }
     }
 

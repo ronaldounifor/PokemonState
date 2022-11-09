@@ -4,9 +4,9 @@ import java.util.Random;
 
 import model.Move;
 import model.Pokemon;
+import util.Status;
 
 public class Envenenado extends State {
-    private static final int POISON_DAMAGE = 10;
 
     public Envenenado(Pokemon pokemon) {
         this.pokemon = pokemon;
@@ -15,23 +15,34 @@ public class Envenenado extends State {
     @Override
     public void receberAtaque(Move move) {
         Random random = new Random();
-        int resultado = random.nextInt(100);
-        
-        if(resultado < 6) {
-            System.out.println("O pokemon causou " + pokemon.getAtaque() * 2);
-            System.out.println("Foi um dano crítico");
-        } else
-            System.out.println("O pokemon causou " + pokemon.getAtaque());
+        int tentativa = random.nextInt(100);
 
-        this.pokemon.setHp(this.pokemon.getHp() - POISON_DAMAGE);
+        //Verifica se acerta
+        if(tentativa < move.getPrecisao()) {
+            int dano = (pokemon.getAtaque() + move.getDano())/20;
+
+            dano += (pokemon.getMaxHp() * (double)1/16);
+
+            //Causa dano
+            pokemon.setHp(pokemon.getHp() - dano);
+
+            //Verifica se aplica efeito
+            if(!Status.PADRAO.equals(move.getEfeito())) {
+                tentativa = random.nextInt(100);
+                if(tentativa < move.getChanceEfeito())
+                    pokemon.setCondicao(move.getEfeito());
+            }
+        }
     }
 
     @Override
     public void mover() {
         Random random = new Random();
         int resultado = random.nextInt(5);
-        if(resultado == 4)
-            this.pokemon.setHp(this.pokemon.getHp() - POISON_DAMAGE);
+        if(resultado == 4) {
+            int dano = (int)(pokemon.getMaxHp() * (double)1/16);
+            this.pokemon.setHp(this.pokemon.getHp() - dano);
+        }
     }
     
 }
